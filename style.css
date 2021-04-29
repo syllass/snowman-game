@@ -1,0 +1,110 @@
+* {
+	box-sizing: border-box;
+}
+
+.container {
+}
+
+.new-game {
+	opacity: 1;
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.new-game-button {
+	margin-left: 50px;
+	margin-right: 50px;
+	height: 50px;
+	width: 100px;
+}
+
+.enter-word {
+	opacity: 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: column;
+	flex-grow: 1;
+	pointer-events: none;
+}
+
+.play {
+	margin: 15px;
+	height: 30px;
+	width: 90px;
+}
+
+.game {
+	opacity: 0;
+	pointer-events: none;
+	display: flex;
+	flex-direction: column;
+}
+
+.game-ui {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin-left: 100px;
+	margin-right: 100px;
+}
+
+.play-area {
+	display: flex;
+	justify-content: space-between;
+	margin-left: 100px;
+	margin-right: 100px;
+}
+
+.letters {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	margin: 10px;
+	border-bottom: 5px solid black;
+	min-width: 10px;
+	max-width: 50px;
+}
+
+.letter-guess {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.letter-guess-input {
+	max-width: 25px;
+	text-align: center;
+}
+
+.guess-letter {
+	margin-top: 20px;
+}
+
+#snowman {
+	max-width: 160px;
+	max-height: 3200px;
+}
+
+.letter-list {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.letter-list-input {
+	min-height: 200px;
+	max-width: 50px;
+	text-align: center;
+	font-size: 24px;
+}
+
+.word-error {
+	color: red;
+	font-size: 20px;
+	font-weight: bold;
+}

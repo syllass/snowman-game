@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Snowman</title>
+</head>
+<body>
+    <div class="container">
+        <section class="new-game">
+            <img class="olaf" src="./olaf_left.jpg" alt="olaf_left">
+            <button class="new-game-button">New Game</button>
+            <img class="olaf" src="./olaf_right.jpg" alt="olaf_right">
+        </section>
+        <section class="enter-word">
+            <p class="enter-word-text">Enter a word to be guessed</p>
+            <input type="text" id="word">
+            <button class="play">Play</button>
+            <p class="word-error"></p>
+        </section>
+        <section class="game">
+            <div class="game-ui">
+                <div class="letter-guess">
+                    <p style="text-align: center;">Guess a letter:</p>
+                    <input type="text" class="letter-guess-input">
+                    <button class="guess-letter">Guess!</button>
+                </div>
+                <img id="snowman" src="./olaf_left.jpg" alt="olaf_left">
+                <div class="letter-list">
+                    <p>List of letters guessed:</p>
+                    <input type="text" class="letter-list-input" disabled>
+                </div>
+            </div>
+            <div class="play-area"></div>
+        </section>
+            <script src="app.js"></script>
+    </div>
+</body>
+</html>
