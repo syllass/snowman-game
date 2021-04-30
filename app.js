@@ -7,6 +7,7 @@ const newGameSection = document.querySelector('.new-game');
 const enterWordSection = document.querySelector('.enter-word');
 const gameSection = document.querySelector('.game');
 const wordError = document.querySelector('.word-error');
+const letterError = document.querySelector('.letter-error');
 const letterListInput = document.querySelector('.letter-list-input');
 const letterGuess = document.querySelector('.letter-guess-input');
 
@@ -51,7 +52,10 @@ playButton.addEventListener('click', (e) => {
 guessButton.addEventListener('click', (e) => {
 	e.preventDefault();
 
-	if (letterListInput.value.includes(letterGuess.value)) {
+	// Error handling
+	const validLetters = /^[A-Za-z]+$/;
+	if (!letterGuess.value || !letterGuess.value.match(validLetters)) {
+		return (letterError.innerText = 'Please enter a valid letter');
 	}
 
 	const letterElements = document.getElementsByClassName('letter');
@@ -70,6 +74,7 @@ guessButton.addEventListener('click', (e) => {
 		}
 	} else {
 		letterListInput.value += letterGuess.value;
+		
 	}
 
 	// Clear input

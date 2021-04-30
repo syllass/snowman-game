@@ -98,7 +98,7 @@
 
 .letter-list-input {
 	min-height: 200px;
-	max-width: 50px;
+	width: 150px;
 	text-align: center;
 	font-size: 24px;
 }
@@ -107,4 +107,14 @@
 	color: red;
 	font-size: 20px;
 	font-weight: bold;
+}
+
+.letter-error {
+	color: red;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+textarea {
+	resize: none;
 }

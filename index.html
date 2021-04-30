@@ -24,13 +24,14 @@
             <div class="game-ui">
                 <div class="letter-guess">
                     <p style="text-align: center;">Guess a letter:</p>
-                    <input type="text" class="letter-guess-input">
+                    <input type="text" class="letter-guess-input" maxlength="1">
                     <button class="guess-letter">Guess!</button>
+                    <p class="letter-error"></p>
                 </div>
                 <img id="snowman" src="./olaf_left.jpg" alt="olaf_left">
                 <div class="letter-list">
                     <p>List of letters guessed:</p>
-                    <input type="text" class="letter-list-input" disabled>
+                    <textarea disabled class="letter-list-input" cols="30" rows="10"></textarea>
                 </div>
             </div>
             <div class="play-area"></div>
