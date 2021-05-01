@@ -3,10 +3,14 @@
 }
 
 .container {
+	display: flex;
+	justify-content: center;
+	height: 100vh;
+	width: 100vw;
+	align-items: center;
 }
 
 .new-game {
-	opacity: 1;
 	position: absolute;
 	display: flex;
 	justify-content: center;
@@ -21,13 +25,15 @@
 }
 
 .enter-word {
-	opacity: 0;
-	display: flex;
-	justify-content: space-between;
+	display: none;
+	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	flex-grow: 1;
 	pointer-events: none;
+}
+
+.enter-word-text {
+	text-align: center;
 }
 
 .play {
@@ -37,10 +43,12 @@
 }
 
 .game {
-	opacity: 0;
+	display: none;
 	pointer-events: none;
-	display: flex;
 	flex-direction: column;
+	width: 100vw;
+	margin-left: 150px;
+	margin-right: 150px;
 }
 
 .game-ui {
@@ -48,15 +56,15 @@
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	margin-left: 100px;
-	margin-right: 100px;
+	/* margin-left: 100px;
+	margin-right: 100px; */
 }
 
 .play-area {
 	display: flex;
 	justify-content: space-between;
-	margin-left: 100px;
-	margin-right: 100px;
+	margin-left: 150px;
+	margin-right: 150px;
 }
 
 .letters {
@@ -77,12 +85,16 @@
 }
 
 .letter-guess-input {
-	max-width: 25px;
+	max-width: 45px;
 	text-align: center;
+	font-size: 24px;
 }
 
 .guess-letter {
 	margin-top: 20px;
+	min-width: 100px;
+	min-height: 40px;
+	font-size: 18px;
 }
 
 #snowman {
@@ -117,4 +129,9 @@
 
 textarea {
 	resize: none;
+}
+
+.chances {
+	text-align: center;
+	font-size: 36px;
 }
