@@ -1,6 +1,8 @@
 const inputWord = document.querySelector('#word');
 const playButton = document.querySelector('.play');
-const newGameButton = document.querySelector('.new-game-button');
+const newGameButton1 = document.querySelector('.one');
+const newGameButton2 = document.querySelector('.two');
+const categories = document.querySelector('.categories');
 const guessButton = document.querySelector('.guess-letter');
 const playArea = document.querySelector('.play-area');
 const newGameSection = document.querySelector('.new-game');
@@ -11,15 +13,29 @@ const letterError = document.querySelector('.letter-error');
 const letterListInput = document.querySelector('.letter-list-input');
 const letterGuess = document.querySelector('.letter-guess-input');
 const chancesLeft = document.querySelector('.chances');
+const olaf = document.querySelector('#snowman');
+const movieButton = document.querySelector('.movies');
 let guessCounter;
 
-newGameButton.addEventListener('click', (e) => {
+newGameButton2.addEventListener('click', (e) => {
 	e.preventDefault();
 
 	newGameSection.style.display = 'none';
 	newGameSection.style.pointerEvents = 'none';
 	enterWordSection.style.display = 'block';
 	enterWordSection.style.pointerEvents = 'auto';
+
+	wordError.innerText = '';
+	inputWord.focus();
+});
+
+newGameButton1.addEventListener('click', (e) => {
+	e.preventDefault();
+
+	newGameSection.style.display = 'none';
+	newGameSection.style.pointerEvents = 'none';
+	categories.style.display = 'block';
+	categories.style.pointerEvents = 'auto';
 });
 
 playButton.addEventListener('click', (e) => {
@@ -35,6 +51,7 @@ playButton.addEventListener('click', (e) => {
 	gameSection.style.display = 'flex';
 	gameSection.style.pointerEvents = 'auto';
 
+	snowman.src = './olaf_cropped.jpg';
 	letterListInput.value = '';
 
 	chancesLeft.innerText = 'Start guessing letters before I melt!';
@@ -55,6 +72,57 @@ playButton.addEventListener('click', (e) => {
 		div.appendChild(p);
 		playArea.appendChild(div);
 	});
+	letterGuess.focus();
+});
+
+movieButton.addEventListener('click', (e) => {
+	e.preventDefault();
+
+	categories.style.display = 'none';
+	categories.style.pointerEvents = 'none';
+	gameSection.style.display = 'flex';
+	gameSection.style.pointerEvents = 'auto';
+
+	snowman.src = './olaf_cropped.jpg';
+	letterListInput.value = '';
+
+	chancesLeft.innerText = 'Start guessing letters before I melt!';
+	guessCounter = 5;
+	while (playArea.firstChild) {
+		playArea.removeChild(playArea.firstChild);
+	}
+
+	let random19 = Math.floor(Math.random() * 19) + 1;
+	let random49 = Math.floor(Math.random() * 49) + 1;
+
+	fetch(
+		`https://api.themoviedb.org/3/discover/movie?api_key=800822ae637e157f1e35a9afa1d01fb3&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${random49}&with_original_language=en&with_watch_monetization_types=flatrate`
+	)
+		.then((res) => res.json())
+		.then((data) => {
+			console.log(data.results[random19].title);
+			const validLetters = /^[A-Za-z]+$/;
+			const wordArray = data.results[random19].title.split('');
+			wordArray.forEach((letter) => {
+				const div = document.createElement('div');
+				div.classList.add('letters');
+				const p = document.createElement('p');
+				p.classList.add('letter');
+				p.innerText = letter;
+				p.style.fontSize = '36px';
+				if (!letter.match(validLetters)) {
+					p.style.opacity = '1';
+					div.id = 'not';
+					div.appendChild(p);
+				} else {
+					p.style.opacity = '0';
+					div.appendChild(p);
+				}
+				playArea.appendChild(div);
+			});
+		});
+
+	letterGuess.focus();
 });
 
 guessButton.addEventListener('click', (e) => {
@@ -67,6 +135,8 @@ guessButton.addEventListener('click', (e) => {
 	// Error handling
 	const validLetters = /^[A-Za-z]+$/;
 	if (!letterGuess.value || !letterGuess.value.match(validLetters)) {
+		letterGuess.value = '';
+		letterGuess.focus();
 		return (letterError.innerText = 'Please enter a valid letter');
 	}
 
@@ -79,9 +149,15 @@ guessButton.addEventListener('click', (e) => {
 	}
 
 	// If player guesses a correct letter
-	if (letters.includes(letterGuess.value)) {
+	if (
+		letters.includes(letterGuess.value.toLowerCase()) ||
+		letters.includes(letterGuess.value.toUpperCase())
+	) {
 		for (let i = 0; i < letterElements.length; i++) {
-			if (letterElements[i].innerText == letterGuess.value) {
+			if (
+				letterElements[i].innerText.toLowerCase() ==
+				letterGuess.value.toLowerCase()
+			) {
 				letterElements[i].style.opacity = 1;
 			}
 		}
@@ -95,6 +171,7 @@ guessButton.addEventListener('click', (e) => {
 		// If player won
 		if (checkWin) {
 			chancesLeft.innerText = 'YOU SAVED ME FROM MELTING!!!';
+			snowman.src = './olaf_flurry.gif';
 			// Back to New Game page
 			setTimeout(() => {
 				gameSection.style.display = 'none';
@@ -110,6 +187,9 @@ guessButton.addEventListener('click', (e) => {
 		// Game over
 		if (guessCounter == 0) {
 			chancesLeft.innerText = 'Game Over';
+			for (let i = 0; i < letterElements.length; i++) {
+				letterElements[i].style.opacity = 1;
+			}
 			// Back to New Game page
 			setTimeout(() => {
 				gameSection.style.display = 'none';
@@ -122,14 +202,19 @@ guessButton.addEventListener('click', (e) => {
 
 		if (guessCounter == 5) {
 			chancesLeft.innerText = 'Oh no my feet have melted';
+			snowman.src = './olaf_nofeet.png';
 		} else if (guessCounter == 4) {
 			chancesLeft.innerText = 'Uh oh there goes my body';
+			snowman.src = './olaf_nobody.png';
 		} else if (guessCounter == 3) {
 			chancesLeft.innerText = "I didn't need both arms anyways";
+			snowman.src = './olaf_leftarm.jpg';
 		} else if (guessCounter == 2) {
 			chancesLeft.innerText = 'Or any arms at all';
+			snowman.src = './olaf_noarms.jpg';
 		} else if (guessCounter == 1) {
 			chancesLeft.innerText = "Last chance! Please don't let me melt!";
+			snowman.src = './olaf_head.jpg';
 		}
 		guessCounter--;
 		// If player guesses the same letter that they've already guessed
@@ -140,4 +225,5 @@ guessButton.addEventListener('click', (e) => {
 
 	// Clear input
 	letterGuess.value = '';
+	letterGuess.focus();
 });

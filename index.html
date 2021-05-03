@@ -11,7 +11,8 @@
     <div class="container">
         <section class="new-game">
             <img class="olaf" src="./olaf_left.jpg" alt="olaf_left">
-            <button class="new-game-button">New Game</button>
+            <button class="new-game-button one">One Player</button>
+            <button class="new-game-button two">Two Players</button>
             <img class="olaf" src="./olaf_right.jpg" alt="olaf_right">
         </section>
         <section class="enter-word">
@@ -19,6 +20,10 @@
             <input type="text" id="word">
             <button class="play">Play</button>
             <p class="word-error"></p>
+        </section>
+        <section class="categories">
+            <p class="category-text">Pick a category</p>
+            <button class="movies">Movies</button>
         </section>
         <section class="game">
             <p class="chances">Start guessing letters before I melt!</p>
@@ -29,7 +34,7 @@
                     <button class="guess-letter">Guess!</button>
                     <p class="letter-error"></p>
                 </div>
-                <img id="snowman" src="./olaf_left.jpg" alt="olaf_left">
+                <img id="snowman" src="./olaf_cropped.jpg" alt="olaf-full">
                 <div class="letter-list">
                     <p>List of letters guessed:</p>
                     <textarea disabled class="letter-list-input" cols="30" rows="10"></textarea>
