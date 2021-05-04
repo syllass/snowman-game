@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/keyboard-css@1.2.4/dist/css/main.min.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>Snowman</title>
 </head>
@@ -16,7 +19,7 @@
             <img class="olaf" src="./olaf_right.jpg" alt="olaf_right">
         </section>
         <section class="enter-word">
-            <p class="enter-word-text">Enter a word to be guessed</p>
+            <p class="enter-word-text">Enter a word:</p>
             <input type="text" id="word">
             <button class="play">Play</button>
             <p class="word-error"></p>
@@ -27,6 +30,7 @@
         </section>
         <section class="game">
             <p class="chances">Start guessing letters before I melt!</p>
+            <img id="snowman" src="./olaf_cropped.jpg" alt="olaf-full">
             <div class="game-ui">
                 <div class="letter-guess">
                     <p style="text-align: center;">Guess a letter:</p>
@@ -34,7 +38,40 @@
                     <button class="guess-letter">Guess!</button>
                     <p class="letter-error"></p>
                 </div>
-                <img id="snowman" src="./olaf_cropped.jpg" alt="olaf-full">
+                <div class="keyboard">
+                    <div class="keyboard-row">
+                        <button class="kbc-button">Q</button>
+                        <button class="kbc-button">W</button>
+                        <button class="kbc-button">E</button>
+                        <button class="kbc-button">R</button>
+                        <button class="kbc-button">T</button>
+                        <button class="kbc-button">Y</button>
+                        <button class="kbc-button">U</button>
+                        <button class="kbc-button">I</button>
+                        <button class="kbc-button">O</button>
+                        <button class="kbc-button">P</button>
+                    </div>
+                    <div class="keyboard-row">
+                        <button class="kbc-button">A</button>
+                        <button class="kbc-button">S</button>
+                        <button class="kbc-button">D</button>
+                        <button class="kbc-button">F</button>
+                        <button class="kbc-button">G</button>
+                        <button class="kbc-button">H</button>
+                        <button class="kbc-button">J</button>
+                        <button class="kbc-button">K</button>
+                        <button class="kbc-button">L</button>
+                    </div>
+                    <div class="keyboard-row">
+                        <button class="kbc-button">Z</button>
+                        <button class="kbc-button">X</button>
+                        <button class="kbc-button">C</button>
+                        <button class="kbc-button">V</button>
+                        <button class="kbc-button">B</button>
+                        <button class="kbc-button">N</button>
+                        <button class="kbc-button">M</button>
+                    </div>
+                </div>
                 <div class="letter-list">
                     <p>List of letters guessed:</p>
                     <textarea disabled class="letter-list-input" cols="30" rows="10"></textarea>
@@ -42,7 +79,7 @@
             </div>
             <div class="play-area"></div>
         </section>
-            <script src="app.js"></script>
     </div>
+    <script src="app.js"></script>
 </body>
 </html>

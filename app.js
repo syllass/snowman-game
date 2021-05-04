@@ -15,7 +15,97 @@ const letterGuess = document.querySelector('.letter-guess-input');
 const chancesLeft = document.querySelector('.chances');
 const olaf = document.querySelector('#snowman');
 const movieButton = document.querySelector('.movies');
+const keyboard = document.querySelector('.keyboard');
 let guessCounter;
+
+function guess(letterGuess) {
+	const letterElements = document.getElementsByClassName('letter');
+
+	// Loop over each letter in the word and store in array
+	const letters = [];
+	for (let i = 0; i < letterElements.length; i++) {
+		letters.push(letterElements[i].innerText);
+	}
+
+	// If player guesses a correct letter
+	if (
+		letters.includes(letterGuess.toLowerCase()) ||
+		letters.includes(letterGuess.toUpperCase())
+	) {
+		for (let i = 0; i < letterElements.length; i++) {
+			if (
+				letterElements[i].innerText.toLowerCase() == letterGuess.toLowerCase()
+			) {
+				letterElements[i].style.opacity = 1;
+			}
+		}
+		// Check if player won
+		const checkWinArray = [];
+		for (let i = 0; i < letterElements.length; i++) {
+			checkWinArray.push(letterElements[i].style.opacity);
+		}
+		const checkWin = checkWinArray.every((value) => value == '1');
+
+		// If player won
+		if (checkWin) {
+			chancesLeft.innerText = 'YOU SAVED ME FROM MELTING!!!';
+			snowman.src = './olaf_flurry.gif';
+			// Back to New Game page
+			setTimeout(() => {
+				gameSection.style.display = 'none';
+				gameSection.style.pointerEvents = 'none';
+				newGameSection.style.display = 'flex';
+				newGameSection.style.pointerEvents = 'auto';
+				inputWord.value = '';
+			}, 5000);
+		}
+		// If player guesses an incorrect letter
+	} else if (
+		!letterListInput.value.toUpperCase().includes(letterGuess.toUpperCase())
+	) {
+		letterListInput.value += letterGuess.toUpperCase();
+		// Game over
+		if (guessCounter == 0) {
+			chancesLeft.innerText = 'Game Over';
+			snowman.src = './olaf_melting.gif';
+			snowman.style.width = '500px';
+			snowman.style.height = 'auto';
+			for (let i = 0; i < letterElements.length; i++) {
+				letterElements[i].style.opacity = 1;
+			}
+			// Back to New Game page
+			setTimeout(() => {
+				gameSection.style.display = 'none';
+				gameSection.style.pointerEvents = 'none';
+				newGameSection.style.display = 'flex';
+				newGameSection.style.pointerEvents = 'auto';
+				inputWord.value = '';
+			}, 5000);
+		}
+
+		if (guessCounter == 5) {
+			chancesLeft.innerText = 'Oh no my feet have melted';
+			snowman.src = './olaf_nofeet.png';
+		} else if (guessCounter == 4) {
+			chancesLeft.innerText = 'Uh oh there goes my body';
+			snowman.src = './olaf_nobody.png';
+		} else if (guessCounter == 3) {
+			chancesLeft.innerText = "I didn't need both arms anyways";
+			snowman.src = './olaf_leftarm.jpg';
+		} else if (guessCounter == 2) {
+			chancesLeft.innerText = 'Or any arms at all';
+			snowman.src = './olaf_noarms.jpg';
+		} else if (guessCounter == 1) {
+			chancesLeft.innerText = "Last chance! Please don't let me melt!";
+			snowman.src = './olaf_head.jpg';
+		}
+		guessCounter--;
+		// If player guesses the same letter that they've already guessed
+	} else {
+		letterError.innerHTML =
+			"You've already tried that letter. <br> Guess a different letter!";
+	}
+}
 
 newGameButton2.addEventListener('click', (e) => {
 	e.preventDefault();
@@ -27,6 +117,12 @@ newGameButton2.addEventListener('click', (e) => {
 
 	wordError.innerText = '';
 	inputWord.focus();
+
+	document.querySelectorAll('.kbc-button').forEach((button) => {
+		button.classList.remove('kbc-button-primary');
+		button.style.color = 'black';
+		button.style.pointerEvents = 'auto';
+	});
 });
 
 newGameButton1.addEventListener('click', (e) => {
@@ -36,6 +132,12 @@ newGameButton1.addEventListener('click', (e) => {
 	newGameSection.style.pointerEvents = 'none';
 	categories.style.display = 'block';
 	categories.style.pointerEvents = 'auto';
+
+	document.querySelectorAll('.kbc-button').forEach((button) => {
+		button.classList.remove('kbc-button-primary');
+		button.style.color = 'black';
+		button.style.pointerEvents = 'auto';
+	});
 });
 
 playButton.addEventListener('click', (e) => {
@@ -140,90 +242,31 @@ guessButton.addEventListener('click', (e) => {
 		return (letterError.innerText = 'Please enter a valid letter');
 	}
 
-	const letterElements = document.getElementsByClassName('letter');
+	guess(letterGuess.value);
 
-	// Loop over each letter in the word and store in array
-	const letters = [];
-	for (let i = 0; i < letterElements.length; i++) {
-		letters.push(letterElements[i].innerText);
-	}
-
-	// If player guesses a correct letter
-	if (
-		letters.includes(letterGuess.value.toLowerCase()) ||
-		letters.includes(letterGuess.value.toUpperCase())
-	) {
-		for (let i = 0; i < letterElements.length; i++) {
-			if (
-				letterElements[i].innerText.toLowerCase() ==
-				letterGuess.value.toLowerCase()
-			) {
-				letterElements[i].style.opacity = 1;
-			}
+	document.querySelectorAll('.kbc-button').forEach((button) => {
+		if (button.innerText.toLowerCase() == letterGuess.value.toLowerCase()) {
+			button.classList.add('kbc-button-primary');
+			button.style.color = 'white';
+			button.style.pointerEvents = 'none';
 		}
-		// Check if player won
-		const checkWinArray = [];
-		for (let i = 0; i < letterElements.length; i++) {
-			checkWinArray.push(letterElements[i].style.opacity);
-		}
-		const checkWin = checkWinArray.every((value) => value == '1');
-
-		// If player won
-		if (checkWin) {
-			chancesLeft.innerText = 'YOU SAVED ME FROM MELTING!!!';
-			snowman.src = './olaf_flurry.gif';
-			// Back to New Game page
-			setTimeout(() => {
-				gameSection.style.display = 'none';
-				gameSection.style.pointerEvents = 'none';
-				newGameSection.style.display = 'flex';
-				newGameSection.style.pointerEvents = 'auto';
-				inputWord.value = '';
-			}, 5000);
-		}
-		// If player guesses an incorrect letter
-	} else if (!letterListInput.value.includes(letterGuess.value)) {
-		letterListInput.value += letterGuess.value;
-		// Game over
-		if (guessCounter == 0) {
-			chancesLeft.innerText = 'Game Over';
-			for (let i = 0; i < letterElements.length; i++) {
-				letterElements[i].style.opacity = 1;
-			}
-			// Back to New Game page
-			setTimeout(() => {
-				gameSection.style.display = 'none';
-				gameSection.style.pointerEvents = 'none';
-				newGameSection.style.display = 'flex';
-				newGameSection.style.pointerEvents = 'auto';
-				inputWord.value = '';
-			}, 5000);
-		}
-
-		if (guessCounter == 5) {
-			chancesLeft.innerText = 'Oh no my feet have melted';
-			snowman.src = './olaf_nofeet.png';
-		} else if (guessCounter == 4) {
-			chancesLeft.innerText = 'Uh oh there goes my body';
-			snowman.src = './olaf_nobody.png';
-		} else if (guessCounter == 3) {
-			chancesLeft.innerText = "I didn't need both arms anyways";
-			snowman.src = './olaf_leftarm.jpg';
-		} else if (guessCounter == 2) {
-			chancesLeft.innerText = 'Or any arms at all';
-			snowman.src = './olaf_noarms.jpg';
-		} else if (guessCounter == 1) {
-			chancesLeft.innerText = "Last chance! Please don't let me melt!";
-			snowman.src = './olaf_head.jpg';
-		}
-		guessCounter--;
-		// If player guesses the same letter that they've already guessed
-	} else {
-		letterError.innerHTML =
-			"You've already tried that letter. <br> Guess a different letter!";
-	}
-
+	});
 	// Clear input
 	letterGuess.value = '';
 	letterGuess.focus();
+});
+
+keyboard.addEventListener('click', (e) => {
+	e.preventDefault();
+
+	if (letterError.innerText) {
+		letterError.innerText = '';
+	}
+
+	if (e.target.classList[0] == 'kbc-button') {
+		e.target.classList.add('kbc-button-primary');
+		e.target.style.color = 'white';
+		e.target.style.pointerEvents = 'none';
+		guess(e.target.innerText);
+	}
 });

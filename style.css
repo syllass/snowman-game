@@ -1,5 +1,6 @@
 * {
 	box-sizing: border-box;
+	font-family: 'Courier Prime', monospace;
 }
 
 .container {
@@ -36,12 +37,21 @@
 
 .enter-word-text {
 	text-align: center;
+	font-size: 36px;
+}
+
+#word {
+	min-width: 40px;
+	min-height: 40px;
+	font-size: 20px;
 }
 
 .play {
 	margin: 15px;
 	height: 30px;
 	width: 90px;
+	min-height: 40px;
+	font-size: 20px;
 }
 
 .categories {
@@ -121,6 +131,10 @@
 #snowman {
 	max-width: 160px;
 	max-height: 3200px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
 }
 
 .letter-list {
@@ -169,4 +183,8 @@ button {
 button:hover {
 	background-color: blue;
 	color: white;
+}
+
+.keyboard-row {
+	text-align: center;
 }
