@@ -1,3 +1,7 @@
+![Screen Shot 2021-05-05 at 9 00 48 AM](https://user-images.githubusercontent.com/34400862/117153343-7b3dd100-ad80-11eb-8822-6ca444fa63fb.png)
+
+Vanilla Javascript, HTML, CSS
+
 Player 1 enters a word. That word is then indicated by empty spaces totaling the number of letters in the given word. Player 2 must guess letters. If the letter guessed is in the word, then the empty space becomes that letter. If the letter guessed is not in the word, then a new part of the snowman in the UI gets added. Once Player 2 guesses incorrectly 5 times, the snowman is complete and Player 1 wins. If Player 2 guesses all of the letters in the word, Player 2 wins.
 
 Wire Frames
