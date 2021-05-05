@@ -68,8 +68,8 @@ function guess(letterGuess) {
 		if (guessCounter == 0) {
 			chancesLeft.innerText = 'Game Over';
 			snowman.src = './olaf_melting.gif';
-			snowman.style.width = '500px';
-			snowman.style.height = 'auto';
+			snowman.style.maxWidth = '100%';
+			snowman.style.setProperty('width', '500px', 'important');
 			for (let i = 0; i < letterElements.length; i++) {
 				letterElements[i].style.opacity = 1;
 			}
@@ -80,6 +80,8 @@ function guess(letterGuess) {
 				newGameSection.style.display = 'flex';
 				newGameSection.style.pointerEvents = 'auto';
 				inputWord.value = '';
+				snowman.style.maxWidth = '160px';
+				snowman.style.width = '50%';
 			}, 5000);
 		}
 
@@ -107,6 +109,7 @@ function guess(letterGuess) {
 	}
 }
 
+// 2 player mode
 newGameButton2.addEventListener('click', (e) => {
 	e.preventDefault();
 
@@ -125,6 +128,7 @@ newGameButton2.addEventListener('click', (e) => {
 	});
 });
 
+// 1 player mode
 newGameButton1.addEventListener('click', (e) => {
 	e.preventDefault();
 
@@ -140,9 +144,11 @@ newGameButton1.addEventListener('click', (e) => {
 	});
 });
 
+// Click play button, builds game
 playButton.addEventListener('click', (e) => {
 	e.preventDefault();
 
+	// Verify word consists of only valid letters
 	const validLetters = /^[A-Za-z]+$/;
 	if (!inputWord.value || !inputWord.value.match(validLetters)) {
 		return (wordError.innerText = 'Please enter a valid word');
@@ -161,7 +167,8 @@ playButton.addEventListener('click', (e) => {
 	while (playArea.firstChild) {
 		playArea.removeChild(playArea.firstChild);
 	}
-
+	
+	// Build word to be guessed
 	const wordArray = inputWord.value.split('');
 	wordArray.forEach((letter) => {
 		const div = document.createElement('div');
@@ -177,6 +184,7 @@ playButton.addEventListener('click', (e) => {
 	letterGuess.focus();
 });
 
+// Click on the movie category, set up game
 movieButton.addEventListener('click', (e) => {
 	e.preventDefault();
 
@@ -197,12 +205,12 @@ movieButton.addEventListener('click', (e) => {
 	let random19 = Math.floor(Math.random() * 19) + 1;
 	let random49 = Math.floor(Math.random() * 49) + 1;
 
+	// Get random movie
 	fetch(
 		`https://api.themoviedb.org/3/discover/movie?api_key=800822ae637e157f1e35a9afa1d01fb3&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${random49}&with_original_language=en&with_watch_monetization_types=flatrate`
 	)
 		.then((res) => res.json())
 		.then((data) => {
-			console.log(data.results[random19].title);
 			const validLetters = /^[A-Za-z]+$/;
 			const wordArray = data.results[random19].title.split('');
 			wordArray.forEach((letter) => {
@@ -227,6 +235,7 @@ movieButton.addEventListener('click', (e) => {
 	letterGuess.focus();
 });
 
+// Clicks the guess button
 guessButton.addEventListener('click', (e) => {
 	e.preventDefault();
 
@@ -244,6 +253,7 @@ guessButton.addEventListener('click', (e) => {
 
 	guess(letterGuess.value);
 
+	// Update keyboard to the letter guessed
 	document.querySelectorAll('.kbc-button').forEach((button) => {
 		if (button.innerText.toLowerCase() == letterGuess.value.toLowerCase()) {
 			button.classList.add('kbc-button-primary');
@@ -256,6 +266,7 @@ guessButton.addEventListener('click', (e) => {
 	letterGuess.focus();
 });
 
+// User clicks on one of the keyboard buttons
 keyboard.addEventListener('click', (e) => {
 	e.preventDefault();
 
